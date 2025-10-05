@@ -19,8 +19,8 @@ const TranscriptionResults = ({ highlightedTimestamp }: TranscriptionResultsProp
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto space-y-6 pb-6">
-      <div className="flex flex-col gap-6">
+    <div className="w-full max-w-4xl mx-auto space-y-4 h-full flex flex-col overflow-hidden">
+      <div className="flex flex-col gap-4 flex-1 min-h-0 overflow-hidden">
         <Card 
           className="border-primary/30 bg-gradient-to-br from-primary/5 to-primary/10 flex-shrink-0"
           style={{ boxShadow: 'var(--shadow-soft)' }}
@@ -38,8 +38,8 @@ const TranscriptionResults = ({ highlightedTimestamp }: TranscriptionResultsProp
         </Card>
 
         <Card 
-          className="border-primary/30 bg-gradient-to-br from-primary/5 to-primary/10 flex flex-col"
-          style={{ boxShadow: 'var(--shadow-soft)', maxHeight: '500px' }}
+          className="border-primary/30 bg-gradient-to-br from-primary/5 to-primary/10 flex flex-col flex-1 min-h-0 overflow-hidden"
+          style={{ boxShadow: 'var(--shadow-soft)' }}
         >
           <CardHeader className="flex-shrink-0">
             <CardTitle className="text-2xl font-bold text-primary">
