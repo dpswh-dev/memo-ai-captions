@@ -82,29 +82,27 @@ const FileDropzone = ({ onFileUpload }: FileDropzoneProps) => {
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto">
+    <div className="w-full mx-auto">
       <div
         onDragEnter={handleDragIn}
         onDragLeave={handleDragOut}
         onDragOver={handleDrag}
         onDrop={handleDrop}
         className={`
-          relative border-2 border-dashed rounded-2xl p-12 text-center
+          relative border-2 border-primary/30 rounded-2xl p-8 text-center
           transition-all duration-300 ease-in-out
-          ${isDragging 
-            ? 'border-primary bg-primary/5 scale-[1.02]' 
-            : 'border-border bg-card hover:border-primary/50'
-          }
+          bg-gradient-to-br from-primary/5 to-primary/10
+          ${isDragging ? 'scale-[1.02] border-primary' : 'hover:border-primary/50'}
         `}
         style={{ boxShadow: 'var(--shadow-soft)' }}
       >
-          <div className="space-y-6">
+          <div className="space-y-4">
             <div className="flex justify-center">
               <div className={`
-                p-6 rounded-full transition-all duration-300
-                ${isDragging ? 'bg-primary/20 scale-110' : 'bg-muted'}
+                p-4 rounded-full transition-all duration-300 bg-primary/20
+                ${isDragging ? 'scale-110' : ''}
               `}>
-                <Upload className={`w-12 h-12 ${isDragging ? 'text-primary' : 'text-muted-foreground'}`} />
+                <Upload className="w-10 h-10 text-primary" />
               </div>
             </div>
 
@@ -112,7 +110,7 @@ const FileDropzone = ({ onFileUpload }: FileDropzoneProps) => {
               <label htmlFor="file-upload">
                 <Button
                   size="lg"
-                  className="w-full max-w-xs h-14 text-lg font-semibold relative overflow-hidden group"
+                  className="w-full max-w-xs h-12 text-base font-semibold relative overflow-hidden group"
                   style={{ 
                     background: 'var(--gradient-primary)',
                     boxShadow: 'var(--shadow-elegant)'
