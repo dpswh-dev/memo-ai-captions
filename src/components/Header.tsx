@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { Plus } from 'lucide-react';
+import { Plus, X } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
 
 interface Session {
@@ -12,9 +12,11 @@ interface HeaderProps {
   activeSessionId?: number | null;
   onSessionChange?: (id: number) => void;
   onFileUpload?: (file: File) => void;
+  onDeleteSession?: (id: number) => void;
+  onDeleteAll?: () => void;
 }
 
-const Header = ({ sessions = [], activeSessionId, onSessionChange, onFileUpload }: HeaderProps) => {
+const Header = ({ sessions = [], activeSessionId, onSessionChange, onFileUpload, onDeleteSession, onDeleteAll }: HeaderProps) => {
   const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (files && files.length > 0) {
@@ -61,7 +63,7 @@ const Header = ({ sessions = [], activeSessionId, onSessionChange, onFileUpload 
                   key={session.id}
                   onClick={() => onSessionChange?.(session.id)}
                   className={`
-                    flex items-center justify-center
+                    flex items-center justify-center gap-1
                     border-2 font-semibold
                     hover:shadow-md
                     ${isActive 
@@ -72,9 +74,20 @@ const Header = ({ sessions = [], activeSessionId, onSessionChange, onFileUpload 
                   style={{ boxShadow: isActive ? 'var(--shadow-elegant)' : 'none' }}
                 >
                   {isActive ? (
-                    <span className="text-sm whitespace-nowrap overflow-hidden text-ellipsis">
-                      {truncateFilename(session.file.name)}
-                    </span>
+                    <>
+                      <span className="text-sm whitespace-nowrap overflow-hidden text-ellipsis">
+                        {truncateFilename(session.file.name)}
+                      </span>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onDeleteSession?.(session.id);
+                        }}
+                        className="ml-1 hover:bg-primary-foreground/20 rounded-full p-0.5"
+                      >
+                        <X className="h-3 w-3" />
+                      </button>
+                    </>
                   ) : (
                     <span>{index + 1}</span>
                   )}
@@ -104,6 +117,17 @@ const Header = ({ sessions = [], activeSessionId, onSessionChange, onFileUpload 
               className="hidden"
             />
           </div>
+        )}
+
+        {/* Delete All Button */}
+        {sessions.length > 0 && (
+          <Button
+            onClick={onDeleteAll}
+            variant="outline"
+            className="absolute right-0 gap-2 border-destructive/30 text-destructive hover:bg-destructive/10 hover:border-destructive/50"
+          >
+            Delete all
+          </Button>
         )}
       </div>
     </header>

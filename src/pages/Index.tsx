@@ -36,6 +36,24 @@ const Index = () => {
     }
   };
 
+  const handleDeleteSession = (sessionId: number) => {
+    setSessions(prev => {
+      const filtered = prev.filter(s => s.id !== sessionId);
+      // If we deleted the active session, set the first session as active
+      if (sessionId === activeSessionId && filtered.length > 0) {
+        setActiveSessionId(filtered[0].id);
+      } else if (filtered.length === 0) {
+        setActiveSessionId(null);
+      }
+      return filtered;
+    });
+  };
+
+  const handleDeleteAll = () => {
+    setSessions([]);
+    setActiveSessionId(null);
+  };
+
   return (
     <HighlightContext.Provider value={{ highlightedTimestamp: activeSession?.highlightedTimestamp, setHighlightedTimestamp }}>
       <div className="h-screen flex flex-col overflow-hidden" style={{ background: 'var(--gradient-subtle)' }}>
@@ -44,6 +62,8 @@ const Index = () => {
           activeSessionId={activeSessionId}
           onSessionChange={setActiveSessionId}
           onFileUpload={handleFileUpload}
+          onDeleteSession={handleDeleteSession}
+          onDeleteAll={handleDeleteAll}
         />
         <main className="container mx-auto px-6 flex-1 flex flex-col overflow-hidden">
           <div className="flex-1 flex flex-col py-6 overflow-hidden">
