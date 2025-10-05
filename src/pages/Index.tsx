@@ -57,7 +57,7 @@ const Index = () => {
                     </div>
                   )}
                   <div className="flex-1 min-h-0 overflow-y-auto">
-                    <TranscriptionResults highlightedTimestamp={highlightedTimestamp} />
+                    <TranscriptionResults highlightedTimestamp={highlightedTimestamp} showUpload={showUpload} />
                   </div>
                 </div>
 
