@@ -46,14 +46,14 @@ const Header = ({ sessions = [], activeSessionId, onSessionChange, onFileUpload 
 
   return (
     <header className="w-full py-8 px-6 border-b border-border bg-card">
-      <div className="max-w-6xl mx-auto flex items-center justify-between gap-4">
-        <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+      <div className="max-w-6xl mx-auto relative">
+        <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent absolute left-0">
           Memo.ai
         </h1>
 
-        {/* Session Buttons */}
+        {/* Session Buttons - Centered */}
         {sessions.length > 0 && (
-          <div className="flex gap-2 items-center justify-center">
+          <div className="flex gap-2 items-center justify-center mx-auto">
             {sessions.map((session, index) => {
               const isActive = session.id === activeSessionId;
               return (
