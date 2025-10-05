@@ -120,9 +120,10 @@ const Header = ({ sessions = [], activeSessionId, onSessionChange, onFileUpload,
                 rounded-full px-4 h-10 whitespace-nowrap
                 border-2 font-semibold text-sm
                 cursor-pointer
+                transition-none
                 ${isMaxReached 
                   ? 'border-muted bg-muted text-muted-foreground cursor-not-allowed opacity-50' 
-                  : 'border-primary/30 bg-gradient-to-br from-primary/5 to-primary/10 text-primary hover:border-primary/60'
+                  : 'border-primary bg-transparent text-primary hover:bg-primary hover:text-white'
                 }
               `}
             >
