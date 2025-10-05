@@ -35,11 +35,11 @@ const TranscriptionResults = ({ highlightedTimestamp }: TranscriptionResultsProp
         </AccordionItem>
 
         {/* Key Points Accordion */}
-        <AccordionItem value="keypoints" className="border-primary/30 bg-gradient-to-br from-primary/5 to-primary/10 rounded-2xl overflow-hidden flex-1 min-h-0 flex flex-col" style={{ boxShadow: 'var(--shadow-soft)' }}>
+        <AccordionItem value="keypoints" className="border-primary/30 bg-gradient-to-br from-primary/5 to-primary/10 rounded-2xl overflow-hidden" style={{ boxShadow: 'var(--shadow-soft)' }}>
           <AccordionTrigger className="px-6 py-4 hover:no-underline flex-shrink-0">
             <h3 className="text-2xl font-bold text-primary">Key Points</h3>
           </AccordionTrigger>
-          <AccordionContent className="px-6 pb-6 flex-1 min-h-0 overflow-y-auto">
+          <AccordionContent className="px-6 pb-6 max-h-[400px] overflow-y-auto">
             <ul className="space-y-4">
               {transcriptionData.keyPoints.map((point, index) => {
                 const isHighlighted = highlightedTimestamp === point.timestamp;
