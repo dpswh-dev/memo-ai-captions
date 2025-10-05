@@ -84,7 +84,7 @@ const AIChatBot = ({ isSidebar = false }: AIChatBotProps) => {
   // Sidebar mode: always visible
   if (isSidebar) {
     return (
-      <Card className="h-[calc(100vh-8rem)] flex flex-col border-primary/30 bg-gradient-to-br from-primary/5 to-primary/10" style={{ boxShadow: 'var(--shadow-soft)' }}>
+      <Card className="h-[calc(100vh-8rem)] flex flex-col border-primary/30 bg-gradient-to-br from-primary/5 to-primary/10 overflow-hidden" style={{ boxShadow: 'var(--shadow-soft)' }}>
         {/* Header */}
         <div className="p-4 border-b bg-primary/5">
           <h3 className="font-semibold text-lg">Meeting Assistant</h3>
@@ -114,7 +114,7 @@ const AIChatBot = ({ isSidebar = false }: AIChatBotProps) => {
         </ScrollArea>
 
         {/* Input - Sticky at bottom */}
-        <div className="p-4 border-t bg-background">
+        <div className="p-4 border-t bg-background rounded-b-xl">
           <div className="flex gap-2">
             <Input
               value={input}
