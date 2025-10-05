@@ -5,34 +5,53 @@ import AIChatBot from '@/components/AIChatBot';
 import TranscriptionResults from '@/components/TranscriptionResults';
 import { HighlightContext } from '@/components/FileDropzone';
 
+interface Session {
+  id: number;
+  file: File;
+  highlightedTimestamp?: string;
+}
 
 const Index = () => {
-  const [file, setFile] = useState<File | null>(null);
-  const [highlightedTimestamp, setHighlightedTimestamp] = useState<string | undefined>();
+  const [sessions, setSessions] = useState<Session[]>([]);
+  const [activeSessionId, setActiveSessionId] = useState<number | null>(null);
   const [showUpload, setShowUpload] = useState(true);
 
+  const activeSession = sessions.find(s => s.id === activeSessionId);
+
   const handleFileUpload = (uploadedFile: File | null) => {
-    console.log('File uploaded:', uploadedFile);
-    setFile(uploadedFile);
     if (uploadedFile) {
-      setShowUpload(true); // Show upload area when new file is uploaded
+      const newSession: Session = {
+        id: Date.now(),
+        file: uploadedFile,
+      };
+      setSessions(prev => [...prev, newSession]);
+      setActiveSessionId(newSession.id);
+      setShowUpload(true);
     }
   };
 
-
-  console.log('Current file state:', file);
+  const setHighlightedTimestamp = (timestamp: string | undefined) => {
+    if (activeSessionId) {
+      setSessions(prev => prev.map(s => 
+        s.id === activeSessionId ? { ...s, highlightedTimestamp: timestamp } : s
+      ));
+    }
+  };
 
   return (
-    <HighlightContext.Provider value={{ highlightedTimestamp, setHighlightedTimestamp }}>
+    <HighlightContext.Provider value={{ highlightedTimestamp: activeSession?.highlightedTimestamp, setHighlightedTimestamp }}>
       <div className="h-screen flex flex-col overflow-hidden" style={{ background: 'var(--gradient-subtle)' }}>
         <Header 
+          sessions={sessions}
+          activeSessionId={activeSessionId}
+          onSessionChange={setActiveSessionId}
           showUpload={showUpload} 
           onToggleUpload={() => setShowUpload(!showUpload)} 
-          hasFile={!!file}
+          hasFile={sessions.length > 0}
         />
         <main className="container mx-auto px-6 flex-1 flex flex-col overflow-hidden">
           <div className="flex-1 flex flex-col py-6 overflow-hidden">
-            {!file ? (
+            {sessions.length === 0 ? (
               <>
                 {/* Title Section */}
                 <div className="text-center mb-6 flex-shrink-0">
@@ -53,11 +72,11 @@ const Index = () => {
                 <div className="flex flex-col h-full min-h-0 space-y-4 max-w-4xl mx-auto w-full overflow-hidden">
                   {showUpload && (
                     <div className="flex-shrink-0">
-                      <FileDropzone onFileUpload={handleFileUpload} uploadedFile={file} />
+                      <FileDropzone onFileUpload={handleFileUpload} uploadedFile={activeSession?.file} />
                     </div>
                   )}
                   <div className="flex-1 min-h-0 overflow-y-auto">
-                    <TranscriptionResults highlightedTimestamp={highlightedTimestamp} showUpload={showUpload} />
+                    <TranscriptionResults highlightedTimestamp={activeSession?.highlightedTimestamp} showUpload={showUpload} />
                   </div>
                 </div>
 
