@@ -81,13 +81,18 @@ const Index = () => {
 
   const handleDeleteSession = (sessionId: number) => {
     setSessions(prev => {
+      const currentIndex = prev.findIndex(s => s.id === sessionId);
       const filtered = prev.filter(s => s.id !== sessionId);
-      // If we deleted the active session, set the first session as active
+      
+      // If we deleted the active session, select the previous one
       if (sessionId === activeSessionId && filtered.length > 0) {
-        setActiveSessionId(filtered[0].id);
+        // Go to previous session, or first if we're deleting the first one
+        const newIndex = currentIndex > 0 ? currentIndex - 1 : 0;
+        setActiveSessionId(filtered[newIndex].id);
       } else if (filtered.length === 0) {
         setActiveSessionId(null);
       }
+      
       return filtered;
     });
   };
@@ -149,7 +154,7 @@ const Index = () => {
             <Button
               variant="ghost"
               size="icon"
-              className="absolute right-4 top-4 rounded-full h-8 w-8 text-primary hover:bg-primary/10"
+              className="absolute right-4 top-4 rounded-full h-8 w-8 text-primary hover:bg-primary hover:text-white transition-none"
               onClick={() => setShowMaxAlert(false)}
             >
               <X className="h-4 w-4" />
