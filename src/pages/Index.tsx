@@ -36,10 +36,8 @@ const Index = () => {
 
             {/* Content - Centered when no file, Grid when file uploaded */}
             {!file ? (
-              <div className="flex-1 flex items-center justify-center">
-                <div className="w-full max-w-2xl">
-                  <FileDropzone onFileUpload={handleFileUpload} />
-                </div>
+              <div className="w-full max-w-2xl mx-auto">
+                <FileDropzone onFileUpload={handleFileUpload} />
               </div>
             ) : (
               <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-8 flex-1 min-h-0">
