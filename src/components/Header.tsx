@@ -62,7 +62,7 @@ const Header = ({ sessions = [], activeSessionId, onSessionChange, onFileUpload,
   };
 
   return (
-    <header className="w-full py-8 px-6 border-b border-border bg-card">
+    <header className="w-full py-8 px-6 border-b-2 border-primary/30 bg-card">
       <div className="container mx-auto">
         <div className="flex items-center justify-between gap-4">
           {/* LEFT: Logo */}
