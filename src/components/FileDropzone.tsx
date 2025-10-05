@@ -128,11 +128,11 @@ const FileDropzone = () => {
           </div>
 
           {file && (
-            <div className="mt-6 p-4 bg-muted rounded-lg">
+            <div className="mt-6 p-4 bg-primary/10 border border-primary/30 rounded-lg">
               <p className="text-sm font-medium text-foreground">
-                Selected file: <span className="text-primary">{file.name}</span>
+                Selected file: <span className="text-primary font-semibold">{file.name}</span>
               </p>
-              <p className="text-xs text-muted-foreground mt-1">
+              <p className="text-xs text-primary/70 mt-1">
                 {(file.size / 1024 / 1024).toFixed(2)} MB
               </p>
             </div>
