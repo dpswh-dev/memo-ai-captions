@@ -12,6 +12,8 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Progress } from "@/components/ui/progress";
+import { Button } from "@/components/ui/button";
+import { X } from "lucide-react";
 
 interface Session {
   id: number;
@@ -144,6 +146,14 @@ const Index = () => {
         {/* Max Files Alert Dialog */}
         <AlertDialog open={showMaxAlert} onOpenChange={setShowMaxAlert}>
           <AlertDialogContent className="max-w-md">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="absolute right-4 top-4 rounded-full h-8 w-8"
+              onClick={() => setShowMaxAlert(false)}
+            >
+              <X className="h-4 w-4" />
+            </Button>
             <AlertDialogHeader>
               <AlertDialogTitle className="text-2xl text-center text-primary">
                 Maximum Files Reached
