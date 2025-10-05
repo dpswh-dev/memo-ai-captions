@@ -82,6 +82,8 @@ const FileDropzone = () => {
           transition-all duration-300 ease-in-out
           ${isDragging 
             ? 'border-primary bg-primary/5 scale-[1.02]' 
+            : file
+            ? 'border-primary bg-primary/5'
             : 'border-border bg-card hover:border-primary/50'
           }
         `}
