@@ -59,7 +59,7 @@ const TranscriptionResults = ({ highlightedTimestamp, showUpload = true }: Trans
                       </span>
                     </div>
                     {index < transcriptionData.keyPoints.length - 1 && (
-                      <hr className="border-primary/20" />
+                      <hr className="border-primary/40" />
                     )}
                   </li>
                 );
