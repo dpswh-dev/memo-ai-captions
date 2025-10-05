@@ -144,7 +144,7 @@ const Header = ({ sessions = [], activeSessionId, onSessionChange, onFileUpload,
             <Button
               onClick={onDeleteAll}
               variant="ghost"
-              className="gap-2 text-destructive bg-transparent border-2 border-destructive rounded-full hover:bg-destructive hover:text-white"
+              className="gap-2 text-destructive bg-transparent border-2 border-destructive rounded-full hover:bg-destructive hover:text-white transition-none"
             >
               Delete all
             </Button>
