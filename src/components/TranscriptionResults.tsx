@@ -15,10 +15,10 @@ const TranscriptionResults = () => {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto mt-12 space-y-6">
-      <div className="grid gap-6 md:grid-cols-2">
+    <div className="w-full mx-auto mt-12 space-y-6">
+      <div className="grid gap-6 md:grid-cols-3">
         <Card 
-          className="border-primary/30 bg-gradient-to-br from-primary/5 to-primary/10"
+          className="border-primary/30 bg-gradient-to-br from-primary/5 to-primary/10 md:col-span-1"
           style={{ boxShadow: 'var(--shadow-soft)' }}
         >
           <CardHeader>
@@ -34,7 +34,7 @@ const TranscriptionResults = () => {
         </Card>
 
         <Card 
-          className="border-primary/30 bg-gradient-to-br from-primary/5 to-primary/10"
+          className="border-primary/30 bg-gradient-to-br from-primary/5 to-primary/10 md:col-span-2"
           style={{ boxShadow: 'var(--shadow-soft)' }}
         >
           <CardHeader>
@@ -49,7 +49,7 @@ const TranscriptionResults = () => {
                   <span className="text-primary font-bold mt-1">•</span>
                   <div className="flex-1 space-y-1">
                     <span className="text-foreground leading-relaxed block">{point.text}</span>
-                    <span className="text-xs text-primary/60 font-mono bg-primary/5 px-2 py-0.5 rounded inline-block">
+                    <span className="text-xs text-primary font-semibold font-mono bg-primary/15 border border-primary/40 px-2 py-1 rounded inline-block">
                       {point.timestamp}
                     </span>
                   </div>
