@@ -98,20 +98,6 @@ const FileDropzone = ({ onFileUpload, uploadedFile }: FileDropzoneProps) => {
         style={{ boxShadow: 'var(--shadow-soft)' }}
       >
           <div className="space-y-4">
-            {uploadedFile && (
-              <div className="flex items-center justify-center gap-3 pb-4 border-b border-primary/20">
-                <Upload className="w-6 h-6 text-primary" />
-                <div className="text-left">
-                  <p className="text-sm font-semibold text-foreground">
-                    {uploadedFile.name}
-                  </p>
-                  <p className="text-xs text-muted-foreground">
-                    {(uploadedFile.size / 1024 / 1024).toFixed(2)} MB
-                  </p>
-                </div>
-              </div>
-            )}
-            
             <div className="flex justify-center">
               <div className={`
                 p-4 rounded-full transition-all duration-300 bg-primary/20
@@ -148,6 +134,22 @@ const FileDropzone = ({ onFileUpload, uploadedFile }: FileDropzoneProps) => {
                 or drop MP3 here
               </p>
             </div>
+
+            {uploadedFile && (
+              <div className="pt-4 border-t border-primary/20">
+                <div className="flex items-center justify-center gap-3">
+                  <Upload className="w-6 h-6 text-primary" />
+                  <div className="text-left">
+                    <p className="text-sm font-semibold text-foreground">
+                      {uploadedFile.name}
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      {(uploadedFile.size / 1024 / 1024).toFixed(2)} MB
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
