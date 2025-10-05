@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -7,6 +8,8 @@ interface TranscriptionResultsProps {
 }
 
 const TranscriptionResults = ({ highlightedTimestamp, showUpload = true }: TranscriptionResultsProps) => {
+  const timestampRefs = useRef<{ [key: string]: HTMLElement | null }>({});
+
   // Sample transcription data
   const transcriptionData = {
     summary: "The quarterly planning meeting covered key objectives for Q4 2025, including product roadmap updates, resource allocation, and team expansion plans. The team discussed the successful launch of the new AI transcription feature and identified areas for improvement in user onboarding. Budget considerations for hiring two additional engineers were approved, and the marketing team presented their campaign strategy for the upcoming product release.",
@@ -19,6 +22,16 @@ const TranscriptionResults = ({ highlightedTimestamp, showUpload = true }: Trans
       { text: "Next milestone: Beta launch of mobile app by end of Q4 with core functionality including real-time transcription, cloud sync, and offline mode. The development team committed to delivering an MVP with iOS and Android versions simultaneously. Early access program will include 100 selected users from our existing customer base for feedback and testing before public release in January.", timestamp: "28:50" }
     ]
   };
+
+  // Auto-scroll to highlighted timestamp
+  useEffect(() => {
+    if (highlightedTimestamp && timestampRefs.current[highlightedTimestamp]) {
+      timestampRefs.current[highlightedTimestamp]?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      });
+    }
+  }, [highlightedTimestamp]);
 
   return (
     <div className="w-full max-w-4xl mx-auto h-full flex flex-col overflow-hidden">
@@ -46,7 +59,10 @@ const TranscriptionResults = ({ highlightedTimestamp, showUpload = true }: Trans
                 const isHighlighted = highlightedTimestamp === point.timestamp;
                 return (
                   <li key={index}>
-                    <div className="grid grid-cols-[1fr_auto] gap-4 items-start pb-4">
+                    <div 
+                      ref={(el) => timestampRefs.current[point.timestamp] = el}
+                      className="grid grid-cols-[1fr_auto] gap-4 items-start pb-4"
+                    >
                       <span className="text-foreground leading-relaxed">{point.text}</span>
                       <span 
                         className={`text-xs font-semibold font-mono px-2 py-1 rounded whitespace-nowrap transition-all duration-300 ${
