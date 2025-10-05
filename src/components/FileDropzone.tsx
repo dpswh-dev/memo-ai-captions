@@ -98,15 +98,6 @@ const FileDropzone = ({ onFileUpload, uploadedFile }: FileDropzoneProps) => {
         style={{ boxShadow: 'var(--shadow-soft)' }}
       >
           <div className="space-y-4">
-            <div className="flex justify-center">
-              <div className={`
-                p-4 rounded-full transition-all duration-300 bg-primary/20
-                ${isDragging ? 'scale-110' : ''}
-              `}>
-                <Upload className="w-10 h-10 text-primary" />
-              </div>
-            </div>
-
             <div className="space-y-2">
               <label htmlFor="file-upload">
                 <Button
