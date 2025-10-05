@@ -23,41 +23,39 @@ const Index = () => {
       <div className="min-h-screen flex flex-col" style={{ background: 'var(--gradient-subtle)' }}>
         <Header />
         <main className="container mx-auto px-6 flex-1 flex flex-col">
-          {!file ? (
-            <div className="flex-1 flex flex-col justify-center py-16">
-              <div className="max-w-4xl mx-auto text-center mb-12">
-                <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-6">
-                  AI Audio Transcription
-                </h1>
-                <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                  Transform your audio recordings into accurate text transcriptions with the power of AI
-                </p>
-              </div>
-              <FileDropzone onFileUpload={handleFileUpload} />
+          <div className="flex-1 flex flex-col py-8">
+            {/* Title Section */}
+            <div className="text-center mb-8 flex-shrink-0">
+              <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-6">
+                AI Audio Transcription
+              </h1>
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                Transform your audio recordings into accurate text transcriptions with the power of AI
+              </p>
             </div>
-          ) : (
-            <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-8 items-start py-8 h-[calc(100vh-5rem)]">
-              {/* Left Column: Header + Transcription Results */}
-              <div className="flex flex-col h-full overflow-hidden">
-                <div className="text-center mb-6 flex-shrink-0">
-                  <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-                    AI Audio Transcription
-                  </h1>
-                  <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                    Transform your audio recordings into accurate text transcriptions with the power of AI
-                  </p>
+
+            {/* Content Grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-8 flex-1 min-h-0">
+              {/* Left Column: Upload + Transcription Results */}
+              <div className="flex flex-col h-full overflow-hidden space-y-6">
+                <div className="flex-shrink-0">
+                  <FileDropzone onFileUpload={handleFileUpload} />
                 </div>
-                <div className="flex-1 overflow-y-auto">
-                  <TranscriptionResults highlightedTimestamp={highlightedTimestamp} />
-                </div>
+                {file && (
+                  <div className="flex-1 overflow-y-auto min-h-0">
+                    <TranscriptionResults highlightedTimestamp={highlightedTimestamp} />
+                  </div>
+                )}
               </div>
 
-              {/* Right Column: Sticky Chat Sidebar */}
-              <div className="h-full">
-                <AIChatBot isSidebar={true} />
-              </div>
+              {/* Right Column: Chat Sidebar (only visible when file is uploaded) */}
+              {file && (
+                <div className="h-full min-h-0">
+                  <AIChatBot isSidebar={true} />
+                </div>
+              )}
             </div>
-          )}
+          </div>
         </main>
       </div>
     </HighlightContext.Provider>
