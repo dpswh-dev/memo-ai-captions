@@ -23,28 +23,28 @@ const Index = () => {
       <div className="min-h-screen flex flex-col" style={{ background: 'var(--gradient-subtle)' }}>
         <Header />
         <main className="container mx-auto px-6 flex-1 flex flex-col">
-          <div className="flex-1 flex flex-col py-8">
-            {/* Title Section */}
-            <div className="text-center mb-8 flex-shrink-0">
-              <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-6">
-                AI Audio Transcription
-              </h1>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                Transform your audio recordings into accurate text transcriptions with the power of AI
-              </p>
-            </div>
-
-            {/* Content - Centered when no file, Grid when file uploaded */}
+          <div className="flex-1 flex flex-col py-8 overflow-hidden">
             {!file ? (
-              <div className="w-full max-w-2xl mx-auto">
-                <FileDropzone onFileUpload={handleFileUpload} />
-              </div>
+              <>
+                {/* Title Section */}
+                <div className="text-center mb-8 flex-shrink-0">
+                  <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-6">
+                    AI Audio Transcription
+                  </h1>
+                  <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                    Transform your audio recordings into accurate text transcriptions with the power of AI
+                  </p>
+                </div>
+                <div className="w-full max-w-2xl mx-auto">
+                  <FileDropzone onFileUpload={handleFileUpload} />
+                </div>
+              </>
             ) : (
-              <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-8 flex-1 min-h-0">
+              <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-6 h-full min-h-0">
                 {/* Left Column: Upload + Transcription Results */}
                 <div className="flex flex-col h-full overflow-hidden space-y-6 max-w-4xl mx-auto w-full">
                   <div className="flex-shrink-0">
-                    <FileDropzone onFileUpload={handleFileUpload} />
+                    <FileDropzone onFileUpload={handleFileUpload} uploadedFile={file} />
                   </div>
                   <div className="flex-1 overflow-y-auto min-h-0">
                     <TranscriptionResults highlightedTimestamp={highlightedTimestamp} />

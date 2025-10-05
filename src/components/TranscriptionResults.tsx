@@ -22,7 +22,7 @@ const TranscriptionResults = ({ highlightedTimestamp }: TranscriptionResultsProp
     <div className="w-full max-w-4xl mx-auto space-y-6 pb-6">
       <div className="flex flex-col gap-6">
         <Card 
-          className="border-primary/30 bg-gradient-to-br from-primary/5 to-primary/10"
+          className="border-primary/30 bg-gradient-to-br from-primary/5 to-primary/10 flex-shrink-0"
           style={{ boxShadow: 'var(--shadow-soft)' }}
         >
           <CardHeader>
@@ -38,8 +38,8 @@ const TranscriptionResults = ({ highlightedTimestamp }: TranscriptionResultsProp
         </Card>
 
         <Card 
-          className="border-primary/30 bg-gradient-to-br from-primary/5 to-primary/10 flex flex-col max-h-[600px]"
-          style={{ boxShadow: 'var(--shadow-soft)' }}
+          className="border-primary/30 bg-gradient-to-br from-primary/5 to-primary/10 flex flex-col"
+          style={{ boxShadow: 'var(--shadow-soft)', maxHeight: '500px' }}
         >
           <CardHeader className="flex-shrink-0">
             <CardTitle className="text-2xl font-bold text-primary">

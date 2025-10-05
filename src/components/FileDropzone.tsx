@@ -13,9 +13,10 @@ export const HighlightContext = createContext<{
 
 interface FileDropzoneProps {
   onFileUpload: (file: File | null) => void;
+  uploadedFile?: File | null;
 }
 
-const FileDropzone = ({ onFileUpload }: FileDropzoneProps) => {
+const FileDropzone = ({ onFileUpload, uploadedFile }: FileDropzoneProps) => {
   const [isDragging, setIsDragging] = useState(false);
 
   const handleDrag = useCallback((e: React.DragEvent) => {
@@ -97,42 +98,58 @@ const FileDropzone = ({ onFileUpload }: FileDropzoneProps) => {
         style={{ boxShadow: 'var(--shadow-soft)' }}
       >
           <div className="space-y-4">
-            <div className="flex justify-center">
-              <div className={`
-                p-4 rounded-full transition-all duration-300 bg-primary/20
-                ${isDragging ? 'scale-110' : ''}
-              `}>
-                <Upload className="w-10 h-10 text-primary" />
+            {uploadedFile ? (
+              <div className="flex items-center justify-center gap-3">
+                <Upload className="w-8 h-8 text-primary" />
+                <div className="text-left">
+                  <p className="text-sm font-semibold text-foreground">
+                    {uploadedFile.name}
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    {(uploadedFile.size / 1024 / 1024).toFixed(2)} MB
+                  </p>
+                </div>
               </div>
-            </div>
+            ) : (
+              <>
+                <div className="flex justify-center">
+                  <div className={`
+                    p-4 rounded-full transition-all duration-300 bg-primary/20
+                    ${isDragging ? 'scale-110' : ''}
+                  `}>
+                    <Upload className="w-10 h-10 text-primary" />
+                  </div>
+                </div>
 
-            <div className="space-y-2">
-              <label htmlFor="file-upload">
-                <Button
-                  size="lg"
-                  className="w-full max-w-xs h-12 text-base font-semibold relative overflow-hidden group"
-                  style={{ 
-                    background: 'var(--gradient-primary)',
-                    boxShadow: 'var(--shadow-elegant)'
-                  }}
-                  onClick={() => document.getElementById('file-upload')?.click()}
-                >
-                  <span className="relative z-10">Upload MP3 file</span>
-                  <div className="absolute inset-0 bg-white/20 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300" />
-                </Button>
-              </label>
-              <input
-                id="file-upload"
-                type="file"
-                accept=".mp3,audio/mpeg"
-                onChange={handleFileInput}
-                className="hidden"
-              />
-              
-              <p className="text-sm text-muted-foreground pt-2">
-                or drop MP3 here
-              </p>
-            </div>
+                <div className="space-y-2">
+                  <label htmlFor="file-upload">
+                    <Button
+                      size="lg"
+                      className="w-full max-w-xs h-12 text-base font-semibold relative overflow-hidden group"
+                      style={{ 
+                        background: 'var(--gradient-primary)',
+                        boxShadow: 'var(--shadow-elegant)'
+                      }}
+                      onClick={() => document.getElementById('file-upload')?.click()}
+                    >
+                      <span className="relative z-10">Upload MP3 file</span>
+                      <div className="absolute inset-0 bg-white/20 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300" />
+                    </Button>
+                  </label>
+                  <input
+                    id="file-upload"
+                    type="file"
+                    accept=".mp3,audio/mpeg"
+                    onChange={handleFileInput}
+                    className="hidden"
+                  />
+                  
+                  <p className="text-sm text-muted-foreground pt-2">
+                    or drop MP3 here
+                  </p>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>
