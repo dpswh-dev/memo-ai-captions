@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react';
 import { Upload } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from '@/hooks/use-toast';
+import TranscriptionResults from './TranscriptionResults';
 
 const FileDropzone = () => {
   const [isDragging, setIsDragging] = useState(false);
@@ -71,75 +72,79 @@ const FileDropzone = () => {
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto">
-      <div
-        onDragEnter={handleDragIn}
-        onDragLeave={handleDragOut}
-        onDragOver={handleDrag}
-        onDrop={handleDrop}
-        className={`
-          relative border-2 border-dashed rounded-2xl p-12 text-center
-          transition-all duration-300 ease-in-out
-          ${isDragging 
-            ? 'border-primary bg-primary/5 scale-[1.02]' 
-            : file
-            ? 'border-primary bg-primary/5'
-            : 'border-border bg-card hover:border-primary/50'
-          }
-        `}
-        style={{ boxShadow: 'var(--shadow-soft)' }}
-      >
-        <div className="space-y-6">
-          <div className="flex justify-center">
-            <div className={`
-              p-6 rounded-full transition-all duration-300
-              ${isDragging ? 'bg-primary/20 scale-110' : 'bg-muted'}
-            `}>
-              <Upload className={`w-12 h-12 ${isDragging ? 'text-primary' : 'text-muted-foreground'}`} />
+    <>
+      <div className="w-full max-w-2xl mx-auto">
+        <div
+          onDragEnter={handleDragIn}
+          onDragLeave={handleDragOut}
+          onDragOver={handleDrag}
+          onDrop={handleDrop}
+          className={`
+            relative border-2 border-dashed rounded-2xl p-12 text-center
+            transition-all duration-300 ease-in-out
+            ${isDragging 
+              ? 'border-primary bg-primary/5 scale-[1.02]' 
+              : file
+              ? 'border-primary bg-primary/5'
+              : 'border-border bg-card hover:border-primary/50'
+            }
+          `}
+          style={{ boxShadow: 'var(--shadow-soft)' }}
+        >
+          <div className="space-y-6">
+            <div className="flex justify-center">
+              <div className={`
+                p-6 rounded-full transition-all duration-300
+                ${isDragging ? 'bg-primary/20 scale-110' : 'bg-muted'}
+              `}>
+                <Upload className={`w-12 h-12 ${isDragging ? 'text-primary' : 'text-muted-foreground'}`} />
+              </div>
             </div>
-          </div>
 
-          <div className="space-y-2">
-            <label htmlFor="file-upload">
-              <Button
-                size="lg"
-                className="w-full max-w-xs h-14 text-lg font-semibold relative overflow-hidden group"
-                style={{ 
-                  background: 'var(--gradient-primary)',
-                  boxShadow: 'var(--shadow-elegant)'
-                }}
-                onClick={() => document.getElementById('file-upload')?.click()}
-              >
-                <span className="relative z-10">Upload MP3 file</span>
-                <div className="absolute inset-0 bg-white/20 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300" />
-              </Button>
-            </label>
-            <input
-              id="file-upload"
-              type="file"
-              accept=".mp3,audio/mpeg"
-              onChange={handleFileInput}
-              className="hidden"
-            />
-            
-            <p className="text-sm text-muted-foreground pt-2">
-              or drop MP3 here
-            </p>
-          </div>
-
-          {file && (
-            <div className="mt-6 p-4 bg-primary/10 border border-primary/30 rounded-lg">
-              <p className="text-sm font-medium text-foreground">
-                Selected file: <span className="text-primary font-semibold">{file.name}</span>
-              </p>
-              <p className="text-xs text-primary/70 mt-1">
-                {(file.size / 1024 / 1024).toFixed(2)} MB
+            <div className="space-y-2">
+              <label htmlFor="file-upload">
+                <Button
+                  size="lg"
+                  className="w-full max-w-xs h-14 text-lg font-semibold relative overflow-hidden group"
+                  style={{ 
+                    background: 'var(--gradient-primary)',
+                    boxShadow: 'var(--shadow-elegant)'
+                  }}
+                  onClick={() => document.getElementById('file-upload')?.click()}
+                >
+                  <span className="relative z-10">Upload MP3 file</span>
+                  <div className="absolute inset-0 bg-white/20 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300" />
+                </Button>
+              </label>
+              <input
+                id="file-upload"
+                type="file"
+                accept=".mp3,audio/mpeg"
+                onChange={handleFileInput}
+                className="hidden"
+              />
+              
+              <p className="text-sm text-muted-foreground pt-2">
+                or drop MP3 here
               </p>
             </div>
-          )}
+
+            {file && (
+              <div className="mt-6 p-4 bg-primary/10 border border-primary/30 rounded-lg">
+                <p className="text-sm font-medium text-foreground">
+                  Selected file: <span className="text-primary font-semibold">{file.name}</span>
+                </p>
+                <p className="text-xs text-primary/70 mt-1">
+                  {(file.size / 1024 / 1024).toFixed(2)} MB
+                </p>
+              </div>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+      
+      {file && <TranscriptionResults />}
+    </>
   );
 };
 
