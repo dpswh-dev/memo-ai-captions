@@ -25,6 +25,7 @@ const Header = ({ sessions = [], activeSessionId, onSessionChange, onFileUpload,
         title: 'Maximum files reached',
         description: `You can upload a maximum of ${maxSessions} files. Please delete some files to upload more.`,
         variant: 'destructive',
+        duration: 3000,
       });
       e.target.value = '';
       return;
@@ -38,12 +39,14 @@ const Header = ({ sessions = [], activeSessionId, onSessionChange, onFileUpload,
         toast({
           title: 'File uploaded',
           description: `${selectedFile.name} is ready for transcription`,
+          duration: 3000,
         });
       } else {
         toast({
           title: 'Invalid file type',
           description: 'Please upload an MP3 file',
           variant: 'destructive',
+          duration: 3000,
         });
       }
     }
