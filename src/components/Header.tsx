@@ -48,17 +48,18 @@ const Header = ({ sessions = [], activeSessionId, onSessionChange, onFileUpload,
 
   return (
     <header className="w-full py-8 px-6 border-b border-border bg-card">
-      <div className="max-w-6xl mx-auto flex items-center justify-between gap-4">
-        {/* LEFT: Logo */}
-        <div className="flex-1">
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-            Memo.ai
-          </h1>
-        </div>
+      <div className="container mx-auto">
+        <div className="flex items-center justify-between gap-4">
+          {/* LEFT: Logo */}
+          <div className="flex-1">
+            <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              Memo.ai
+            </h1>
+          </div>
 
-        {/* MIDDLE: Session Buttons */}
-        {sessions.length > 0 && (
-          <div className="flex gap-2 items-center justify-center flex-1">
+          {/* MIDDLE: Session Buttons */}
+          {sessions.length > 0 && (
+            <div className="flex gap-2 items-center justify-center">
             {sessions.map((session, index) => {
               const isActive = session.id === activeSessionId;
               return (
@@ -120,21 +121,22 @@ const Header = ({ sessions = [], activeSessionId, onSessionChange, onFileUpload,
               className="hidden"
             />
           </div>
-        )}
-
-        {/* RIGHT: Delete All Button or Spacer */}
-        <div className="flex-1 flex justify-end">
-          {sessions.length > 0 ? (
-            <Button
-              onClick={onDeleteAll}
-              variant="ghost"
-              className="gap-2 text-destructive hover:bg-transparent hover:text-destructive/80 border-2 border-destructive/30 rounded-full hover:border-destructive/50"
-            >
-              Delete all
-            </Button>
-          ) : (
-            <div /> 
           )}
+
+          {/* RIGHT: Delete All Button or Spacer */}
+          <div className="flex-1 flex justify-end">
+            {sessions.length > 0 ? (
+              <Button
+                onClick={onDeleteAll}
+                variant="ghost"
+                className="gap-2 text-destructive hover:bg-transparent hover:text-destructive/80 border-2 border-destructive/30 rounded-full hover:border-destructive/50"
+              >
+                Delete all
+              </Button>
+            ) : (
+              <div /> 
+            )}
+          </div>
         </div>
       </div>
     </header>
