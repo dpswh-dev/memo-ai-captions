@@ -10,6 +10,14 @@ const Index = () => {
   const [file, setFile] = useState<File | null>(null);
   const [highlightedTimestamp, setHighlightedTimestamp] = useState<string | undefined>();
 
+  const handleFileUpload = (uploadedFile: File | null) => {
+    console.log('File uploaded:', uploadedFile);
+    setFile(uploadedFile);
+  };
+
+
+  console.log('Current file state:', file);
+
   return (
     <HighlightContext.Provider value={{ highlightedTimestamp, setHighlightedTimestamp }}>
       <div className="min-h-screen" style={{ background: 'var(--gradient-subtle)' }}>
@@ -25,7 +33,7 @@ const Index = () => {
                   Transform your audio recordings into accurate text transcriptions with the power of AI
                 </p>
               </div>
-              <FileDropzone onFileUpload={setFile} />
+              <FileDropzone onFileUpload={handleFileUpload} />
             </>
           ) : (
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-8 items-start">
