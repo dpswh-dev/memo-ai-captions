@@ -6,7 +6,11 @@ import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { HighlightContext } from './FileDropzone';
 
-const AIChatBot = () => {
+interface AIChatBotProps {
+  isSidebar?: boolean;
+}
+
+const AIChatBot = ({ isSidebar = false }: AIChatBotProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
     { role: 'assistant', content: 'Hi! I can help you with questions about your meeting summary. What would you like to know?' }
@@ -77,6 +81,58 @@ const AIChatBot = () => {
     }, 500);
   };
 
+  // Sidebar mode: always visible
+  if (isSidebar) {
+    return (
+      <Card className="h-[calc(100vh-8rem)] flex flex-col border-primary/30 bg-gradient-to-br from-primary/5 to-primary/10" style={{ boxShadow: 'var(--shadow-soft)' }}>
+        {/* Header */}
+        <div className="p-4 border-b bg-primary/5">
+          <h3 className="font-semibold text-lg">Meeting Assistant</h3>
+          <p className="text-sm text-muted-foreground">Ask questions about your meeting</p>
+        </div>
+
+        {/* Messages */}
+        <ScrollArea className="flex-1 p-4">
+          <div className="space-y-4">
+            {messages.map((msg, idx) => (
+              <div
+                key={idx}
+                className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+              >
+                <div
+                  className={`max-w-[80%] rounded-lg px-4 py-2 ${
+                    msg.role === 'user'
+                      ? 'bg-primary text-primary-foreground'
+                      : 'bg-muted'
+                  }`}
+                >
+                  <p className="text-sm">{msg.content}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </ScrollArea>
+
+        {/* Input - Sticky at bottom */}
+        <div className="p-4 border-t bg-background">
+          <div className="flex gap-2">
+            <Input
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyPress={(e) => e.key === 'Enter' && handleSend()}
+              placeholder="Ask a question..."
+              className="flex-1"
+            />
+            <Button onClick={handleSend} size="icon">
+              <Send className="h-4 w-4" />
+            </Button>
+          </div>
+        </div>
+      </Card>
+    );
+  }
+
+  // Popup mode: floating button + slide-in panel
   return (
     <>
       {/* Floating Button - only show when closed */}

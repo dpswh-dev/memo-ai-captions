@@ -1,8 +1,7 @@
-import { useState, useCallback, createContext, useContext } from 'react';
+import { useState, useCallback, createContext } from 'react';
 import { Upload } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from '@/hooks/use-toast';
-import TranscriptionResults from './TranscriptionResults';
 
 export const HighlightContext = createContext<{
   highlightedTimestamp: string | undefined;
@@ -12,10 +11,12 @@ export const HighlightContext = createContext<{
   setHighlightedTimestamp: () => {},
 });
 
-const FileDropzone = () => {
+interface FileDropzoneProps {
+  onFileUpload: (file: File | null) => void;
+}
+
+const FileDropzone = ({ onFileUpload }: FileDropzoneProps) => {
   const [isDragging, setIsDragging] = useState(false);
-  const [file, setFile] = useState<File | null>(null);
-  const [highlightedTimestamp, setHighlightedTimestamp] = useState<string | undefined>();
 
   const handleDrag = useCallback((e: React.DragEvent) => {
     e.preventDefault();
@@ -45,7 +46,7 @@ const FileDropzone = () => {
     if (files && files.length > 0) {
       const droppedFile = files[0];
       if (droppedFile.type === 'audio/mpeg' || droppedFile.name.endsWith('.mp3')) {
-        setFile(droppedFile);
+        onFileUpload(droppedFile);
         toast({
           title: 'File uploaded',
           description: `${droppedFile.name} is ready for transcription`,
@@ -65,7 +66,7 @@ const FileDropzone = () => {
     if (files && files.length > 0) {
       const selectedFile = files[0];
       if (selectedFile.type === 'audio/mpeg' || selectedFile.name.endsWith('.mp3')) {
-        setFile(selectedFile);
+        onFileUpload(selectedFile);
         toast({
           title: 'File uploaded',
           description: `${selectedFile.name} is ready for transcription`,
@@ -81,25 +82,22 @@ const FileDropzone = () => {
   };
 
   return (
-    <HighlightContext.Provider value={{ highlightedTimestamp, setHighlightedTimestamp }}>
-      <div className="w-full max-w-2xl mx-auto">
-        <div
-          onDragEnter={handleDragIn}
-          onDragLeave={handleDragOut}
-          onDragOver={handleDrag}
-          onDrop={handleDrop}
-          className={`
-            relative border-2 border-dashed rounded-2xl p-12 text-center
-            transition-all duration-300 ease-in-out
-            ${isDragging 
-              ? 'border-primary bg-primary/5 scale-[1.02]' 
-              : file
-              ? 'border-primary bg-primary/5'
-              : 'border-border bg-card hover:border-primary/50'
-            }
-          `}
-          style={{ boxShadow: 'var(--shadow-soft)' }}
-        >
+    <div className="w-full max-w-2xl mx-auto">
+      <div
+        onDragEnter={handleDragIn}
+        onDragLeave={handleDragOut}
+        onDragOver={handleDrag}
+        onDrop={handleDrop}
+        className={`
+          relative border-2 border-dashed rounded-2xl p-12 text-center
+          transition-all duration-300 ease-in-out
+          ${isDragging 
+            ? 'border-primary bg-primary/5 scale-[1.02]' 
+            : 'border-border bg-card hover:border-primary/50'
+          }
+        `}
+        style={{ boxShadow: 'var(--shadow-soft)' }}
+      >
           <div className="space-y-6">
             <div className="flex justify-center">
               <div className={`
@@ -137,24 +135,10 @@ const FileDropzone = () => {
                 or drop MP3 here
               </p>
             </div>
-
-            {file && (
-              <div className="mt-6 p-4 bg-primary/10 border border-primary/30 rounded-lg">
-                <p className="text-sm font-medium text-foreground">
-                  Selected file: <span className="text-primary font-semibold">{file.name}</span>
-                </p>
-                <p className="text-xs text-primary/70 mt-1">
-                  {(file.size / 1024 / 1024).toFixed(2)} MB
-                </p>
-              </div>
-            )}
           </div>
         </div>
       </div>
-      
-      {file && <TranscriptionResults highlightedTimestamp={highlightedTimestamp} />}
-    </HighlightContext.Provider>
-  );
-};
+    );
+  };
 
 export default FileDropzone;
