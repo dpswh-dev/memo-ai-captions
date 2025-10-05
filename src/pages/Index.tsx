@@ -1,12 +1,22 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import Header from '@/components/Header';
+import FileDropzone from '@/components/FileDropzone';
 
 const Index = () => {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen" style={{ background: 'var(--gradient-subtle)' }}>
+      <Header />
+      <main className="container mx-auto px-6 py-16">
+        <div className="max-w-4xl mx-auto text-center mb-12">
+          <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-6">
+            AI Audio Transcription
+          </h1>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            Transform your audio recordings into accurate text transcriptions with the power of AI
+          </p>
+        </div>
+        
+        <FileDropzone />
+      </main>
     </div>
   );
 };
