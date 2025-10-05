@@ -15,7 +15,7 @@ const TranscriptionResults = () => {
   };
 
   return (
-    <div className="w-full mx-auto mt-12 space-y-6">
+    <div className="w-full max-w-4xl mx-auto mt-12 space-y-6">
       <div className="flex flex-col gap-6">
         <Card 
           className="border-primary/30 bg-gradient-to-br from-primary/5 to-primary/10"
