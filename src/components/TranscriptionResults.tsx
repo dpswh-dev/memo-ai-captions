@@ -42,7 +42,7 @@ const TranscriptionResults = ({ highlightedTimestamp, showUpload = true }: Trans
           <AccordionTrigger className="px-6 py-4 hover:no-underline">
             <h3 className="text-2xl font-bold text-primary">Meeting Summary</h3>
           </AccordionTrigger>
-          <AccordionContent className="px-6 pb-6 max-h-[40vh] overflow-y-auto">
+          <AccordionContent className="px-6 pb-6 pt-2 max-h-[40vh] overflow-y-auto">
             <p className="text-foreground leading-relaxed">
               {transcriptionData.summary}
             </p>
