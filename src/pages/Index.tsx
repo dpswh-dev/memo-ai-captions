@@ -52,7 +52,7 @@ const Index = () => {
                 </div>
 
                 {/* Right Column: Chat Sidebar */}
-                <div className="h-full min-h-0">
+                <div className="sticky top-8 h-[calc(100vh-8rem)]">
                   <AIChatBot isSidebar={true} />
                 </div>
               </div>
