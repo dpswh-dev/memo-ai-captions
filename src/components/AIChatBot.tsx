@@ -46,9 +46,19 @@ const AIChatBot = () => {
       >
         <Card className="h-full flex flex-col border-0 rounded-none">
           {/* Header */}
-          <div className="p-4 border-b bg-primary/5">
-            <h3 className="font-semibold text-lg">Meeting Assistant</h3>
-            <p className="text-sm text-muted-foreground">Ask questions about your meeting</p>
+          <div className="p-4 border-b bg-primary/5 flex items-start justify-between">
+            <div>
+              <h3 className="font-semibold text-lg">Meeting Assistant</h3>
+              <p className="text-sm text-muted-foreground">Ask questions about your meeting</p>
+            </div>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setIsOpen(false)}
+              className="h-8 w-8"
+            >
+              <X className="h-4 w-4" />
+            </Button>
           </div>
 
           {/* Messages */}
