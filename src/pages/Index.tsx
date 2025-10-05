@@ -34,27 +34,31 @@ const Index = () => {
               </p>
             </div>
 
-            {/* Content Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-8 flex-1 min-h-0">
-              {/* Left Column: Upload + Transcription Results */}
-              <div className="flex flex-col h-full overflow-hidden space-y-6 max-w-4xl mx-auto w-full">
-                <div className="flex-shrink-0">
+            {/* Content - Centered when no file, Grid when file uploaded */}
+            {!file ? (
+              <div className="flex-1 flex items-center justify-center">
+                <div className="w-full max-w-2xl">
                   <FileDropzone onFileUpload={handleFileUpload} />
                 </div>
-                {file && (
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-8 flex-1 min-h-0">
+                {/* Left Column: Upload + Transcription Results */}
+                <div className="flex flex-col h-full overflow-hidden space-y-6 max-w-4xl mx-auto w-full">
+                  <div className="flex-shrink-0">
+                    <FileDropzone onFileUpload={handleFileUpload} />
+                  </div>
                   <div className="flex-1 overflow-y-auto min-h-0">
                     <TranscriptionResults highlightedTimestamp={highlightedTimestamp} />
                   </div>
-                )}
-              </div>
+                </div>
 
-              {/* Right Column: Chat Sidebar (only visible when file is uploaded) */}
-              {file && (
+                {/* Right Column: Chat Sidebar */}
                 <div className="h-full min-h-0">
                   <AIChatBot isSidebar={true} />
                 </div>
-              )}
-            </div>
+              </div>
+            )}
           </div>
         </main>
       </div>
