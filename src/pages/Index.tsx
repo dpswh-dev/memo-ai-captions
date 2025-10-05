@@ -131,7 +131,7 @@ const Index = () => {
                 </div>
               </>
             ) : (
-              <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-4 flex-1 min-h-0 overflow-hidden">
+              <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-6 flex-1 min-h-0 overflow-hidden">
                 {/* Left Column: Transcription Results */}
                 <div className="flex flex-col h-full min-h-0 w-full overflow-hidden">
                   <div className="flex-1 min-h-0 overflow-y-auto">

@@ -36,7 +36,7 @@ const TranscriptionResults = ({ highlightedTimestamp, showUpload = true }: Trans
 
   return (
     <div className="w-full max-w-4xl mx-auto h-full flex flex-col overflow-hidden">
-      <Accordion type="multiple" defaultValue={["summary", "keypoints"]} className="flex flex-col gap-4 flex-1 min-h-0 overflow-y-auto">
+      <Accordion type="multiple" defaultValue={["summary", "keypoints"]} className="flex flex-col gap-6 flex-1 min-h-0 overflow-y-auto">
         {/* Meeting Summary Accordion */}
         <AccordionItem value="summary" className="border-2 border-primary/30 bg-gradient-to-br from-primary/5 to-primary/10 rounded-2xl overflow-hidden" style={{ boxShadow: 'var(--shadow-soft)' }}>
           <AccordionTrigger className="px-6 py-4 hover:no-underline">
