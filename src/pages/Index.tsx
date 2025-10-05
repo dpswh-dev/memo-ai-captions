@@ -42,11 +42,11 @@ const Index = () => {
             ) : (
               <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-6 h-full min-h-0">
                 {/* Left Column: Upload + Transcription Results */}
-                <div className="flex flex-col h-full overflow-hidden space-y-6 max-w-4xl mx-auto w-full">
+                <div className="flex flex-col h-full min-h-0 space-y-6 max-w-4xl mx-auto w-full">
                   <div className="flex-shrink-0">
                     <FileDropzone onFileUpload={handleFileUpload} uploadedFile={file} />
                   </div>
-                  <div className="flex-1 overflow-y-auto min-h-0">
+                  <div className="flex-1 min-h-0 overflow-y-auto">
                     <TranscriptionResults highlightedTimestamp={highlightedTimestamp} />
                   </div>
                 </div>
