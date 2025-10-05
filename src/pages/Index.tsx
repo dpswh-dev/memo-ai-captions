@@ -9,10 +9,14 @@ import { HighlightContext } from '@/components/FileDropzone';
 const Index = () => {
   const [file, setFile] = useState<File | null>(null);
   const [highlightedTimestamp, setHighlightedTimestamp] = useState<string | undefined>();
+  const [showUpload, setShowUpload] = useState(true);
 
   const handleFileUpload = (uploadedFile: File | null) => {
     console.log('File uploaded:', uploadedFile);
     setFile(uploadedFile);
+    if (uploadedFile) {
+      setShowUpload(true); // Show upload area when new file is uploaded
+    }
   };
 
 
@@ -21,7 +25,11 @@ const Index = () => {
   return (
     <HighlightContext.Provider value={{ highlightedTimestamp, setHighlightedTimestamp }}>
       <div className="h-screen flex flex-col overflow-hidden" style={{ background: 'var(--gradient-subtle)' }}>
-        <Header />
+        <Header 
+          showUpload={showUpload} 
+          onToggleUpload={() => setShowUpload(!showUpload)} 
+          hasFile={!!file}
+        />
         <main className="container mx-auto px-6 flex-1 flex flex-col overflow-hidden">
           <div className="flex-1 flex flex-col py-6 overflow-hidden">
             {!file ? (
@@ -43,9 +51,11 @@ const Index = () => {
               <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-4 flex-1 min-h-0 overflow-hidden">
                 {/* Left Column: Upload + Transcription Results */}
                 <div className="flex flex-col h-full min-h-0 space-y-4 max-w-4xl mx-auto w-full overflow-hidden">
-                  <div className="flex-shrink-0">
-                    <FileDropzone onFileUpload={handleFileUpload} uploadedFile={file} />
-                  </div>
+                  {showUpload && (
+                    <div className="flex-shrink-0">
+                      <FileDropzone onFileUpload={handleFileUpload} uploadedFile={file} />
+                    </div>
+                  )}
                   <div className="flex-1 min-h-0 overflow-y-auto">
                     <TranscriptionResults highlightedTimestamp={highlightedTimestamp} />
                   </div>
