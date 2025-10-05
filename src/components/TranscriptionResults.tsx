@@ -1,6 +1,10 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
-const TranscriptionResults = () => {
+interface TranscriptionResultsProps {
+  highlightedTimestamp?: string;
+}
+
+const TranscriptionResults = ({ highlightedTimestamp }: TranscriptionResultsProps) => {
   // Sample transcription data
   const transcriptionData = {
     summary: "The quarterly planning meeting covered key objectives for Q4 2025, including product roadmap updates, resource allocation, and team expansion plans. The team discussed the successful launch of the new AI transcription feature and identified areas for improvement in user onboarding. Budget considerations for hiring two additional engineers were approved, and the marketing team presented their campaign strategy for the upcoming product release.",
@@ -44,19 +48,28 @@ const TranscriptionResults = () => {
           </CardHeader>
           <CardContent>
             <ul className="space-y-4">
-              {transcriptionData.keyPoints.map((point, index) => (
-                <li key={index}>
-                  <div className="grid grid-cols-[1fr_auto] gap-4 items-start pb-4">
-                    <span className="text-foreground leading-relaxed">{point.text}</span>
-                    <span className="text-xs text-primary font-semibold font-mono bg-primary/15 border border-primary/40 px-2 py-1 rounded whitespace-nowrap">
-                      {point.timestamp}
-                    </span>
-                  </div>
-                  {index < transcriptionData.keyPoints.length - 1 && (
-                    <hr className="border-primary/20" />
-                  )}
-                </li>
-              ))}
+              {transcriptionData.keyPoints.map((point, index) => {
+                const isHighlighted = highlightedTimestamp === point.timestamp;
+                return (
+                  <li key={index}>
+                    <div className="grid grid-cols-[1fr_auto] gap-4 items-start pb-4">
+                      <span className="text-foreground leading-relaxed">{point.text}</span>
+                      <span 
+                        className={`text-xs font-semibold font-mono px-2 py-1 rounded whitespace-nowrap transition-all duration-300 ${
+                          isHighlighted 
+                            ? 'bg-green-500 text-white border-2 border-green-600 shadow-lg scale-110' 
+                            : 'text-primary bg-primary/15 border border-primary/40'
+                        }`}
+                      >
+                        {point.timestamp}
+                      </span>
+                    </div>
+                    {index < transcriptionData.keyPoints.length - 1 && (
+                      <hr className="border-primary/20" />
+                    )}
+                  </li>
+                );
+              })}
             </ul>
           </CardContent>
         </Card>

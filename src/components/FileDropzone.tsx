@@ -1,12 +1,21 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, createContext, useContext } from 'react';
 import { Upload } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from '@/hooks/use-toast';
 import TranscriptionResults from './TranscriptionResults';
 
+export const HighlightContext = createContext<{
+  highlightedTimestamp: string | undefined;
+  setHighlightedTimestamp: (timestamp: string | undefined) => void;
+}>({
+  highlightedTimestamp: undefined,
+  setHighlightedTimestamp: () => {},
+});
+
 const FileDropzone = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [file, setFile] = useState<File | null>(null);
+  const [highlightedTimestamp, setHighlightedTimestamp] = useState<string | undefined>();
 
   const handleDrag = useCallback((e: React.DragEvent) => {
     e.preventDefault();
@@ -72,7 +81,7 @@ const FileDropzone = () => {
   };
 
   return (
-    <>
+    <HighlightContext.Provider value={{ highlightedTimestamp, setHighlightedTimestamp }}>
       <div className="w-full max-w-2xl mx-auto">
         <div
           onDragEnter={handleDragIn}
@@ -143,8 +152,8 @@ const FileDropzone = () => {
         </div>
       </div>
       
-      {file && <TranscriptionResults />}
-    </>
+      {file && <TranscriptionResults highlightedTimestamp={highlightedTimestamp} />}
+    </HighlightContext.Provider>
   );
 };
 

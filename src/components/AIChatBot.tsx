@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { MessageCircle, X, Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { HighlightContext } from './FileDropzone';
 
 const AIChatBot = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,19 +12,68 @@ const AIChatBot = () => {
     { role: 'assistant', content: 'Hi! I can help you with questions about your meeting summary. What would you like to know?' }
   ]);
   const [input, setInput] = useState('');
+  const { setHighlightedTimestamp } = useContext(HighlightContext);
+
+  // Mock responses with timestamp references
+  const getMockResponse = (userInput: string) => {
+    const lowerInput = userInput.toLowerCase();
+    if (lowerInput.includes('ai') || lowerInput.includes('transcription') || lowerInput.includes('accuracy')) {
+      return {
+        content: 'The AI transcription feature achieved a 95% accuracy rate. You can read more about this at timestamp 05:42.',
+        timestamp: '05:42'
+      };
+    }
+    if (lowerInput.includes('budget') || lowerInput.includes('hiring') || lowerInput.includes('engineer')) {
+      return {
+        content: 'The budget for hiring two senior engineers and one product designer was approved. Check timestamp 12:30 for details.',
+        timestamp: '12:30'
+      };
+    }
+    if (lowerInput.includes('marketing') || lowerInput.includes('campaign') || lowerInput.includes('launch')) {
+      return {
+        content: 'The marketing campaign is scheduled to launch on November 15th. See timestamp 18:05 for the full strategy.',
+        timestamp: '18:05'
+      };
+    }
+    if (lowerInput.includes('mobile') || lowerInput.includes('app') || lowerInput.includes('beta')) {
+      return {
+        content: 'The mobile app beta launch is planned for end of Q4. More details at timestamp 28:50.',
+        timestamp: '28:50'
+      };
+    }
+    if (lowerInput.includes('roadmap') || lowerInput.includes('product') || lowerInput.includes('q4')) {
+      return {
+        content: 'The Q4 product roadmap focuses on AI-powered features and mobile app development. See timestamp 02:15.',
+        timestamp: '02:15'
+      };
+    }
+    return {
+      content: 'I can help you find information in the meeting. Try asking about the AI features, budget, marketing campaign, or product roadmap!',
+      timestamp: undefined
+    };
+  };
 
   const handleSend = () => {
     if (!input.trim()) return;
     
     setMessages([...messages, { role: 'user', content: input }]);
+    const userQuestion = input;
     setInput('');
     
-    // Mock response for static version
+    // Mock response with timestamp highlighting
     setTimeout(() => {
+      const response = getMockResponse(userQuestion);
       setMessages(prev => [...prev, { 
         role: 'assistant', 
-        content: 'This is a static demo. Integration coming soon!' 
+        content: response.content
       }]);
+      
+      // Highlight the referenced timestamp
+      if (response.timestamp) {
+        setHighlightedTimestamp(response.timestamp);
+        // Clear highlight after 5 seconds
+        setTimeout(() => setHighlightedTimestamp(undefined), 5000);
+      }
     }, 500);
   };
 
