@@ -40,20 +40,16 @@ const Index = () => {
                 </div>
               </>
             ) : (
-              <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-4 flex-1 min-h-0 overflow-hidden">
-                {/* Left Column: Upload + Transcription Results */}
-                <div className="flex flex-col h-full min-h-0 space-y-4 max-w-4xl mx-auto w-full overflow-hidden">
-                  <div className="flex-shrink-0">
-                    <FileDropzone onFileUpload={handleFileUpload} uploadedFile={file} />
-                  </div>
-                  <div className="flex-1 min-h-0 overflow-y-auto">
-                    <TranscriptionResults highlightedTimestamp={highlightedTimestamp} />
-                  </div>
+              <div className="flex flex-col gap-4 flex-1 min-h-0 overflow-hidden">
+                {/* Top Row: Upload File + Chatbot */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 flex-shrink-0">
+                  <FileDropzone onFileUpload={handleFileUpload} uploadedFile={file} />
+                  <AIChatBot isSidebar={true} />
                 </div>
 
-                {/* Right Column: Chat Sidebar */}
-                <div className="h-full min-h-0 overflow-hidden">
-                  <AIChatBot isSidebar={true} />
+                {/* Bottom Row: Meeting Summary + Key Points (Full Width) */}
+                <div className="flex-1 min-h-0 overflow-hidden">
+                  <TranscriptionResults highlightedTimestamp={highlightedTimestamp} />
                 </div>
               </div>
             )}
