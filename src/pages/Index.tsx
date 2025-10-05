@@ -1,9 +1,17 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Header from '@/components/Header';
 import FileDropzone from '@/components/FileDropzone';
 import AIChatBot from '@/components/AIChatBot';
 import TranscriptionResults from '@/components/TranscriptionResults';
 import { HighlightContext } from '@/components/FileDropzone';
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import { Progress } from "@/components/ui/progress";
 
 interface Session {
   id: number;
@@ -14,11 +22,19 @@ interface Session {
 const Index = () => {
   const [sessions, setSessions] = useState<Session[]>([]);
   const [activeSessionId, setActiveSessionId] = useState<number | null>(null);
+  const [showMaxAlert, setShowMaxAlert] = useState(false);
+  const [progress, setProgress] = useState(100);
 
   const activeSession = sessions.find(s => s.id === activeSessionId);
 
   const handleFileUpload = (uploadedFile: File | null) => {
     if (uploadedFile) {
+      if (sessions.length >= 5) {
+        setShowMaxAlert(true);
+        setProgress(100);
+        return;
+      }
+      
       const newSession: Session = {
         id: Date.now(),
         file: uploadedFile,
@@ -27,6 +43,29 @@ const Index = () => {
       setActiveSessionId(newSession.id);
     }
   };
+
+  // Auto-close alert after 5 seconds with progress bar
+  useEffect(() => {
+    if (showMaxAlert) {
+      const duration = 5000; // 5 seconds
+      const interval = 50; // Update every 50ms
+      const decrement = (interval / duration) * 100;
+      
+      const timer = setInterval(() => {
+        setProgress(prev => {
+          const newProgress = prev - decrement;
+          if (newProgress <= 0) {
+            clearInterval(timer);
+            setShowMaxAlert(false);
+            return 100;
+          }
+          return newProgress;
+        });
+      }, interval);
+
+      return () => clearInterval(timer);
+    }
+  }, [showMaxAlert]);
 
   const setHighlightedTimestamp = (timestamp: string | undefined) => {
     if (activeSessionId) {
@@ -99,6 +138,23 @@ const Index = () => {
             )}
           </div>
         </main>
+
+        {/* Max Files Alert Dialog */}
+        <AlertDialog open={showMaxAlert} onOpenChange={setShowMaxAlert}>
+          <AlertDialogContent className="max-w-md">
+            <AlertDialogHeader>
+              <AlertDialogTitle className="text-2xl text-center text-primary">
+                Maximum Files Reached
+              </AlertDialogTitle>
+              <AlertDialogDescription className="text-center text-base pt-2">
+                You have reached the maximum limit of 5 file uploads. Please delete some files if you want to upload more.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <div className="pt-4">
+              <Progress value={progress} className="h-2" />
+            </div>
+          </AlertDialogContent>
+        </AlertDialog>
       </div>
     </HighlightContext.Provider>
   );
