@@ -46,8 +46,8 @@ const Header = ({ sessions = [], activeSessionId, onSessionChange, onFileUpload 
 
   return (
     <header className="w-full py-8 px-6 border-b border-border bg-card">
-      <div className="max-w-6xl mx-auto flex flex-col items-center gap-4">
-        <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent text-center">
+      <div className="max-w-6xl mx-auto flex items-center justify-between gap-4">
+        <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
           Memo.ai
         </h1>
 
