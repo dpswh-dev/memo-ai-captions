@@ -103,14 +103,14 @@ const Header = ({ sessions = [], activeSessionId, onSessionChange, onFileUpload,
               onClick={() => document.getElementById('header-file-upload')?.click()}
               className="
                 flex items-center justify-center
-                rounded-full px-4 h-10
+                rounded-full px-4 h-10 whitespace-nowrap
                 border-2 border-primary/30 bg-gradient-to-br from-primary/5 to-primary/10
                 text-primary font-semibold text-sm
                 cursor-pointer
                 hover:border-primary/60
               "
             >
-              <span>Upload more</span>
+              Upload more
             </button>
             <input
               id="header-file-upload"
@@ -128,7 +128,7 @@ const Header = ({ sessions = [], activeSessionId, onSessionChange, onFileUpload,
             <Button
               onClick={onDeleteAll}
               variant="ghost"
-              className="gap-2 text-destructive hover:bg-transparent hover:text-destructive/80"
+              className="gap-2 text-destructive hover:bg-transparent hover:text-destructive/80 border-2 border-destructive/30 rounded-full hover:border-destructive/50"
             >
               Delete all
             </Button>
