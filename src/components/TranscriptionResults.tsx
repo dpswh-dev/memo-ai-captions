@@ -45,14 +45,12 @@ const TranscriptionResults = () => {
           <CardContent>
             <ul className="space-y-4">
               {transcriptionData.keyPoints.map((point, index) => (
-                <li key={index} className="flex items-start gap-3 group">
+                <li key={index} className="grid grid-cols-[auto_1fr_auto] gap-3 items-start group">
                   <span className="text-primary font-bold mt-1">•</span>
-                  <div className="flex-1 space-y-1">
-                    <span className="text-foreground leading-relaxed block">{point.text}</span>
-                    <span className="text-xs text-primary font-semibold font-mono bg-primary/15 border border-primary/40 px-2 py-1 rounded inline-block">
-                      {point.timestamp}
-                    </span>
-                  </div>
+                  <span className="text-foreground leading-relaxed">{point.text}</span>
+                  <span className="text-xs text-primary font-semibold font-mono bg-primary/15 border border-primary/40 px-2 py-1 rounded whitespace-nowrap">
+                    {point.timestamp}
+                  </span>
                 </li>
               ))}
             </ul>
