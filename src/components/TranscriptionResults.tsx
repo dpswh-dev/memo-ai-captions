@@ -68,7 +68,7 @@ const TranscriptionResults = ({ highlightedTimestamp, showUpload = true }: Trans
                       <span 
                         className={`text-xs font-semibold font-mono px-2 py-1 rounded whitespace-nowrap transition-all duration-300 ${
                           isHighlighted 
-                            ? 'bg-green-500 text-white border-2 border-green-600 shadow-lg scale-110' 
+                            ? 'bg-primary text-white border-2 border-primary shadow-lg scale-110' 
                             : 'text-primary bg-primary/15 border border-primary/40'
                         }`}
                       >
