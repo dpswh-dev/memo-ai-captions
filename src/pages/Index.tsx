@@ -29,17 +29,19 @@ const Index = () => {
 
   const handleFileUpload = (uploadedFile: File | null) => {
     if (uploadedFile) {
-      if (sessions.length >= 5) {
-        setShowMaxAlert(true);
-        setProgress(100);
-        return;
-      }
-      
       const newSession: Session = {
         id: Date.now(),
         file: uploadedFile,
       };
-      setSessions(prev => [...prev, newSession]);
+      setSessions(prev => {
+        const updated = [...prev, newSession];
+        // Show alert when reaching exactly 5 files
+        if (updated.length === 5) {
+          setShowMaxAlert(true);
+          setProgress(100);
+        }
+        return updated;
+      });
       setActiveSessionId(newSession.id);
     }
   };
