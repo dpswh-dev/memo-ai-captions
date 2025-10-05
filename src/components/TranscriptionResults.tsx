@@ -16,9 +16,9 @@ const TranscriptionResults = () => {
 
   return (
     <div className="w-full mx-auto mt-12 space-y-6">
-      <div className="grid gap-6 md:grid-cols-3">
+      <div className="flex flex-col gap-6">
         <Card 
-          className="border-primary/30 bg-gradient-to-br from-primary/5 to-primary/10 md:col-span-1"
+          className="border-primary/30 bg-gradient-to-br from-primary/5 to-primary/10"
           style={{ boxShadow: 'var(--shadow-soft)' }}
         >
           <CardHeader>
@@ -34,7 +34,7 @@ const TranscriptionResults = () => {
         </Card>
 
         <Card 
-          className="border-primary/30 bg-gradient-to-br from-primary/5 to-primary/10 md:col-span-2"
+          className="border-primary/30 bg-gradient-to-br from-primary/5 to-primary/10"
           style={{ boxShadow: 'var(--shadow-soft)' }}
         >
           <CardHeader>
