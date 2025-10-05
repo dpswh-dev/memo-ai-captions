@@ -1,5 +1,6 @@
 import Header from '@/components/Header';
 import FileDropzone from '@/components/FileDropzone';
+import AIChatBot from '@/components/AIChatBot';
 
 const Index = () => {
   return (
@@ -17,6 +18,7 @@ const Index = () => {
         
         <FileDropzone />
       </main>
+      <AIChatBot />
     </div>
   );
 };
