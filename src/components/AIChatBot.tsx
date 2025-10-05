@@ -75,8 +75,8 @@ const AIChatBot = ({ isSidebar = false }: AIChatBotProps) => {
       // Highlight the referenced timestamp
       if (response.timestamp) {
         setHighlightedTimestamp(response.timestamp);
-        // Clear highlight after 5 seconds
-        setTimeout(() => setHighlightedTimestamp(undefined), 5000);
+        // Clear highlight after 10 seconds
+        setTimeout(() => setHighlightedTimestamp(undefined), 10000);
       }
     }, 500);
   };
@@ -84,7 +84,7 @@ const AIChatBot = ({ isSidebar = false }: AIChatBotProps) => {
   // Sidebar mode: always visible
   if (isSidebar) {
     return (
-      <Card className="h-[calc(100vh-8rem)] flex flex-col border-primary/30 bg-gradient-to-br from-primary/5 to-primary/10 overflow-hidden" style={{ boxShadow: 'var(--shadow-soft)' }}>
+      <Card className="h-full flex flex-col border-primary/30 bg-gradient-to-br from-primary/5 to-primary/10 overflow-hidden" style={{ boxShadow: 'var(--shadow-soft)' }}>
         {/* Header */}
         <div className="p-4 border-b bg-primary/5">
           <h3 className="font-semibold text-lg">Meeting Assistant</h3>

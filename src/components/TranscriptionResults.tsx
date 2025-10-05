@@ -19,7 +19,7 @@ const TranscriptionResults = ({ highlightedTimestamp }: TranscriptionResultsProp
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto mt-12 space-y-6">
+    <div className="w-full max-w-4xl mx-auto space-y-6 pb-6">
       <div className="flex flex-col gap-6">
         <Card 
           className="border-primary/30 bg-gradient-to-br from-primary/5 to-primary/10"
@@ -38,15 +38,15 @@ const TranscriptionResults = ({ highlightedTimestamp }: TranscriptionResultsProp
         </Card>
 
         <Card 
-          className="border-primary/30 bg-gradient-to-br from-primary/5 to-primary/10"
+          className="border-primary/30 bg-gradient-to-br from-primary/5 to-primary/10 flex flex-col max-h-[600px]"
           style={{ boxShadow: 'var(--shadow-soft)' }}
         >
-          <CardHeader>
+          <CardHeader className="flex-shrink-0">
             <CardTitle className="text-2xl font-bold text-primary">
               Key Points
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="flex-1 overflow-y-auto">
             <ul className="space-y-4">
               {transcriptionData.keyPoints.map((point, index) => {
                 const isHighlighted = highlightedTimestamp === point.timestamp;

@@ -20,11 +20,11 @@ const Index = () => {
 
   return (
     <HighlightContext.Provider value={{ highlightedTimestamp, setHighlightedTimestamp }}>
-      <div className="min-h-screen" style={{ background: 'var(--gradient-subtle)' }}>
+      <div className="min-h-screen flex flex-col" style={{ background: 'var(--gradient-subtle)' }}>
         <Header />
-        <main className="container mx-auto px-6 py-16">
+        <main className="container mx-auto px-6 flex-1 flex flex-col">
           {!file ? (
-            <>
+            <div className="flex-1 flex flex-col justify-center py-16">
               <div className="max-w-4xl mx-auto text-center mb-12">
                 <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-6">
                   AI Audio Transcription
@@ -34,24 +34,26 @@ const Index = () => {
                 </p>
               </div>
               <FileDropzone onFileUpload={handleFileUpload} />
-            </>
+            </div>
           ) : (
-            <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-8 items-start">
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-8 items-start py-8 h-[calc(100vh-5rem)]">
               {/* Left Column: Header + Transcription Results */}
-              <div className="space-y-8">
-                <div className="text-center">
-                  <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-6">
+              <div className="flex flex-col h-full overflow-hidden">
+                <div className="text-center mb-6 flex-shrink-0">
+                  <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
                     AI Audio Transcription
                   </h1>
-                  <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                  <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                     Transform your audio recordings into accurate text transcriptions with the power of AI
                   </p>
                 </div>
-                <TranscriptionResults highlightedTimestamp={highlightedTimestamp} />
+                <div className="flex-1 overflow-y-auto">
+                  <TranscriptionResults highlightedTimestamp={highlightedTimestamp} />
+                </div>
               </div>
 
               {/* Right Column: Sticky Chat Sidebar */}
-              <div className="lg:sticky lg:top-6">
+              <div className="h-full">
                 <AIChatBot isSidebar={true} />
               </div>
             </div>
