@@ -86,16 +86,15 @@ const Header = ({ sessions = [], activeSessionId, onSessionChange, onFileUpload 
             <button
               onClick={() => document.getElementById('header-file-upload')?.click()}
               className="
-                flex items-center justify-center gap-1
+                flex items-center justify-center
                 rounded-full px-4 h-10
                 border-2 border-primary/30 bg-gradient-to-br from-primary/5 to-primary/10
                 text-primary font-semibold text-sm
-                transition-all duration-300 ease-in-out
-                hover:border-primary/50 hover:shadow-md hover:scale-105
+                cursor-pointer
+                hover:border-primary/60
               "
             >
               <span>Upload more</span>
-              <Plus className="h-4 w-4" />
             </button>
             <input
               id="header-file-upload"
