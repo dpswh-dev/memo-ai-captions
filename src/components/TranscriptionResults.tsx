@@ -8,6 +8,7 @@ interface TranscriptionResultsProps {
 }
 
 const TranscriptionResults = ({ highlightedTimestamp, showUpload = true }: TranscriptionResultsProps) => {
+  const maxHeight = showUpload ? 'max-h-[60vh]' : 'max-h-[70vh]';
   const timestampRefs = useRef<{ [key: string]: HTMLElement | null }>({});
 
   // Sample transcription data
@@ -53,7 +54,7 @@ const TranscriptionResults = ({ highlightedTimestamp, showUpload = true }: Trans
           <AccordionTrigger className="px-6 py-4 hover:no-underline flex-shrink-0">
             <h3 className="text-2xl font-bold text-primary">Key Points</h3>
           </AccordionTrigger>
-          <AccordionContent className={`px-6 pb-6 overflow-y-auto ${showUpload ? 'max-h-[400px]' : 'max-h-[60vh]'}`}>
+          <AccordionContent className={`px-6 pb-6 overflow-y-auto ${maxHeight}`}>
             <ul className="space-y-4">
               {transcriptionData.keyPoints.map((point, index) => {
                 const isHighlighted = highlightedTimestamp === point.timestamp;

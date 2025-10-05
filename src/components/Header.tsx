@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
-import { FileUp, FileX } from 'lucide-react';
+import { Plus } from 'lucide-react';
+import { toast } from '@/hooks/use-toast';
 
 interface Session {
   id: number;
@@ -10,12 +11,31 @@ interface HeaderProps {
   sessions?: Session[];
   activeSessionId?: number | null;
   onSessionChange?: (id: number) => void;
-  showUpload?: boolean;
-  onToggleUpload?: () => void;
-  hasFile?: boolean;
+  onFileUpload?: (file: File) => void;
 }
 
-const Header = ({ sessions = [], activeSessionId, onSessionChange, showUpload = true, onToggleUpload, hasFile = false }: HeaderProps) => {
+const Header = ({ sessions = [], activeSessionId, onSessionChange, onFileUpload }: HeaderProps) => {
+  const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (files && files.length > 0) {
+      const selectedFile = files[0];
+      if (selectedFile.type === 'audio/mpeg' || selectedFile.name.endsWith('.mp3')) {
+        onFileUpload?.(selectedFile);
+        toast({
+          title: 'File uploaded',
+          description: `${selectedFile.name} is ready for transcription`,
+        });
+      } else {
+        toast({
+          title: 'Invalid file type',
+          description: 'Please upload an MP3 file',
+          variant: 'destructive',
+        });
+      }
+    }
+    // Reset input value to allow uploading the same file again
+    e.target.value = '';
+  };
   const truncateFilename = (filename: string, maxLength: number = 150) => {
     if (filename.length <= maxLength) return filename;
     const ext = filename.split('.').pop();
@@ -63,27 +83,29 @@ const Header = ({ sessions = [], activeSessionId, onSessionChange, showUpload = 
                 </button>
               );
             })}
+            
+            {/* Add New File Button */}
+            <button
+              onClick={() => document.getElementById('header-file-upload')?.click()}
+              className="
+                flex items-center justify-center
+                rounded-full w-10 h-10
+                border-2 border-primary/30 bg-gradient-to-br from-primary/5 to-primary/10
+                text-primary
+                transition-all duration-300 ease-in-out
+                hover:border-primary/50 hover:shadow-md hover:scale-105
+              "
+            >
+              <Plus className="h-5 w-5" />
+            </button>
+            <input
+              id="header-file-upload"
+              type="file"
+              accept=".mp3,audio/mpeg"
+              onChange={handleFileInput}
+              className="hidden"
+            />
           </div>
-        )}
-
-        {hasFile && onToggleUpload && (
-          <Button 
-            onClick={onToggleUpload} 
-            variant="outline"
-            className="gap-2"
-          >
-            {showUpload ? (
-              <>
-                <FileX className="h-4 w-4" />
-                Hide Upload
-              </>
-            ) : (
-              <>
-                <FileUp className="h-4 w-4" />
-                Show Upload
-              </>
-            )}
-          </Button>
         )}
       </div>
     </header>

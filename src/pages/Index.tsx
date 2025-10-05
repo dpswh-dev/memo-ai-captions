@@ -14,7 +14,6 @@ interface Session {
 const Index = () => {
   const [sessions, setSessions] = useState<Session[]>([]);
   const [activeSessionId, setActiveSessionId] = useState<number | null>(null);
-  const [showUpload, setShowUpload] = useState(true);
 
   const activeSession = sessions.find(s => s.id === activeSessionId);
 
@@ -26,7 +25,6 @@ const Index = () => {
       };
       setSessions(prev => [...prev, newSession]);
       setActiveSessionId(newSession.id);
-      setShowUpload(true);
     }
   };
 
@@ -45,9 +43,7 @@ const Index = () => {
           sessions={sessions}
           activeSessionId={activeSessionId}
           onSessionChange={setActiveSessionId}
-          showUpload={showUpload} 
-          onToggleUpload={() => setShowUpload(!showUpload)} 
-          hasFile={sessions.length > 0}
+          onFileUpload={handleFileUpload}
         />
         <main className="container mx-auto px-6 flex-1 flex flex-col overflow-hidden">
           <div className="flex-1 flex flex-col py-6 overflow-hidden">
@@ -68,15 +64,10 @@ const Index = () => {
               </>
             ) : (
               <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-4 flex-1 min-h-0 overflow-hidden">
-                {/* Left Column: Upload + Transcription Results */}
-                <div className="flex flex-col h-full min-h-0 space-y-4 max-w-4xl mx-auto w-full overflow-hidden">
-                  {showUpload && (
-                    <div className="flex-shrink-0">
-                      <FileDropzone onFileUpload={handleFileUpload} uploadedFile={activeSession?.file} />
-                    </div>
-                  )}
+                {/* Left Column: Transcription Results */}
+                <div className="flex flex-col h-full min-h-0 w-full overflow-hidden">
                   <div className="flex-1 min-h-0 overflow-y-auto">
-                    <TranscriptionResults highlightedTimestamp={activeSession?.highlightedTimestamp} showUpload={showUpload} />
+                    <TranscriptionResults highlightedTimestamp={activeSession?.highlightedTimestamp} showUpload={false} />
                   </div>
                 </div>
 
