@@ -149,7 +149,7 @@ const Index = () => {
             <Button
               variant="ghost"
               size="icon"
-              className="absolute right-4 top-4 rounded-full h-8 w-8"
+              className="absolute right-4 top-4 rounded-full h-8 w-8 text-primary hover:bg-primary/10"
               onClick={() => setShowMaxAlert(false)}
             >
               <X className="h-4 w-4" />

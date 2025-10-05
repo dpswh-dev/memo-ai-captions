@@ -140,14 +140,14 @@ const Header = ({ sessions = [], activeSessionId, onSessionChange, onFileUpload,
 
           {/* RIGHT: Delete All Button or Spacer */}
           <div className="flex-1 flex justify-end">
-            {sessions.length > 0 ? (
-              <Button
-                onClick={onDeleteAll}
-                variant="ghost"
-                className="gap-2 text-destructive hover:bg-transparent hover:text-destructive/80 border-2 border-destructive/30 rounded-full hover:border-destructive/50"
-              >
-                Delete all
-              </Button>
+          {sessions.length > 0 ? (
+            <Button
+              onClick={onDeleteAll}
+              variant="ghost"
+              className="gap-2 text-destructive bg-transparent border-2 border-destructive rounded-full hover:bg-destructive hover:text-white"
+            >
+              Delete all
+            </Button>
             ) : (
               <div /> 
             )}
