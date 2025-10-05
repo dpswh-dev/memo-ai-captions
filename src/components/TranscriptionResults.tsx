@@ -24,7 +24,7 @@ const TranscriptionResults = ({ highlightedTimestamp, showUpload = true }: Trans
     <div className="w-full max-w-4xl mx-auto h-full flex flex-col overflow-hidden">
       <Accordion type="multiple" defaultValue={["summary", "keypoints"]} className="flex flex-col gap-4 flex-1 min-h-0 overflow-y-auto">
         {/* Meeting Summary Accordion */}
-        <AccordionItem value="summary" className="border-primary/30 bg-gradient-to-br from-primary/5 to-primary/10 rounded-2xl overflow-hidden" style={{ boxShadow: 'var(--shadow-soft)' }}>
+        <AccordionItem value="summary" className="border-2 border-primary/30 bg-gradient-to-br from-primary/5 to-primary/10 rounded-2xl overflow-hidden" style={{ boxShadow: 'var(--shadow-soft)' }}>
           <AccordionTrigger className="px-6 py-4 hover:no-underline">
             <h3 className="text-2xl font-bold text-primary">Meeting Summary</h3>
           </AccordionTrigger>
@@ -36,7 +36,7 @@ const TranscriptionResults = ({ highlightedTimestamp, showUpload = true }: Trans
         </AccordionItem>
 
         {/* Key Points Accordion */}
-        <AccordionItem value="keypoints" className="border-primary/30 bg-gradient-to-br from-primary/5 to-primary/10 rounded-2xl overflow-hidden" style={{ boxShadow: 'var(--shadow-soft)' }}>
+        <AccordionItem value="keypoints" className="border-2 border-primary/30 bg-gradient-to-br from-primary/5 to-primary/10 rounded-2xl overflow-hidden" style={{ boxShadow: 'var(--shadow-soft)' }}>
           <AccordionTrigger className="px-6 py-4 hover:no-underline flex-shrink-0">
             <h3 className="text-2xl font-bold text-primary">Key Points</h3>
           </AccordionTrigger>

@@ -84,10 +84,10 @@ const AIChatBot = ({ isSidebar = false }: AIChatBotProps) => {
   // Sidebar mode: always visible
   if (isSidebar) {
     return (
-      <Card className="h-full flex flex-col border-primary/30 bg-gradient-to-br from-primary/5 to-primary/10 overflow-hidden" style={{ boxShadow: 'var(--shadow-soft)' }}>
+      <Card className="h-full flex flex-col border-2 border-primary/30 bg-gradient-to-br from-primary/5 to-primary/10 overflow-hidden" style={{ boxShadow: 'var(--shadow-soft)' }}>
         {/* Header */}
-        <div className="p-4 border-b bg-primary/5">
-          <h3 className="font-semibold text-lg">Meeting Assistant</h3>
+        <div className="p-4 border-b border-primary/20 bg-primary/5">
+          <h3 className="font-semibold text-lg text-primary">Meeting Assistant</h3>
           <p className="text-sm text-muted-foreground">Ask questions about your meeting</p>
         </div>
 
@@ -114,7 +114,7 @@ const AIChatBot = ({ isSidebar = false }: AIChatBotProps) => {
         </ScrollArea>
 
         {/* Input - Sticky at bottom */}
-        <div className="p-4 border-t bg-background rounded-b-xl">
+        <div className="p-4 border-t border-primary/20 bg-background rounded-b-xl">
           <div className="flex gap-2">
             <Input
               value={input}
@@ -154,9 +154,9 @@ const AIChatBot = ({ isSidebar = false }: AIChatBotProps) => {
       >
         <Card className="h-full flex flex-col border-0 rounded-none">
           {/* Header */}
-          <div className="p-4 border-b bg-primary/5 flex items-start justify-between">
+          <div className="p-4 border-b border-primary/20 bg-primary/5 flex items-start justify-between">
             <div>
-              <h3 className="font-semibold text-lg">Meeting Assistant</h3>
+              <h3 className="font-semibold text-lg text-primary">Meeting Assistant</h3>
               <p className="text-sm text-muted-foreground">Ask questions about your meeting</p>
             </div>
             <Button
@@ -192,7 +192,7 @@ const AIChatBot = ({ isSidebar = false }: AIChatBotProps) => {
           </ScrollArea>
 
           {/* Input */}
-          <div className="p-4 border-t">
+          <div className="p-4 border-t border-primary/20">
             <div className="flex gap-2">
               <Input
                 value={input}
