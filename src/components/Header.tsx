@@ -66,7 +66,7 @@ const Header = ({ sessions = [], activeSessionId, onSessionChange, onFileUpload 
                     hover:shadow-md
                     ${isActive 
                       ? 'rounded-full px-4 h-10 min-w-[2.5rem] bg-primary text-primary-foreground border-primary shadow-lg' 
-                      : 'rounded-full w-10 h-10 border-primary/30 bg-gradient-to-br from-primary/5 to-primary/10 text-primary hover:border-primary/50 transition-all duration-300'
+                      : 'rounded-full w-10 h-10 border-primary/30 bg-gradient-to-br from-primary/5 to-primary/10 text-primary hover:border-primary/50'
                     }
                   `}
                   style={{ boxShadow: isActive ? 'var(--shadow-elegant)' : 'none' }}
